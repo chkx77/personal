@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portafolio Personal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      align-items: center;
+      text-align: center;
+      background: #a0153e;
+      color: #eeeeee;
+      scroll-behavior: smooth;
+      width: 100%; /* Añadir ancho completo en dispositivos pequeños */
+    }
+
+    .navbar, .sidebar {
+      background: #00224d;
+    }
+
+    .navbar-brand, .navbar-nav .nav-link, .sidebar a {
+      color: #eeeeee;
+      text-decoration: none;
+    }
+
+    .navbar-nav .nav-link:hover, .sidebar a:hover {
+      color: #ff4081;
+    }
+
+    /* Agregar el efecto hover para los botones del navbar */
+    .navbar-nav .nav-link {
+      color: grey; /* color de texto por defecto */
+      position: relative; /* establecer la posición relativa */
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #c08bc0; /* color magenta claro */
+    }
+
+    .navbar-nav .nav-link::before {
+      content: '';
+      position: absolute;
+      bottom: -2px; /* posición inicial, justo debajo del texto */
+      left: 0;
+      width: 0;
+      height: 2px; /* grosor del subrayado */
+      background-color: #ff00ff; /* color del subrayado */
+      transition: width 0.3s; /* animación de transición */
+    }
+
+    .navbar-nav .nav-link:hover::before {
+      width: 100%; /* expandir el subrayado al 100% del ancho del botón */
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 100%;
+      padding-top: 60px;
+      transition: all 0.3s;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #2c2c2c;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+      animation: slideIn 0.5s forwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-250px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 15px 20px;
+      width: 100%;
+      text-align: left;
+      font-size: 1.2rem;
+      color: #eeeeee;
+      transition: background 0.3s, color 0.3s, transform 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: #444444;
+      color: #ff4081;
+      transform: translateX(1cm);
+    }
+
+    .social-icons a:hover {
+    color: #ecfc0b !important;
+    filter: drop-shadow(0px 9px 5px #000000) !important;
+  }
+
+    .content {
+      margin-left: 250px;
+      transition: margin-left 0.3s;
+      padding: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none; /* Ocultar la barra lateral en pantallas pequeñas */
+        width: 0; /* Establecer el ancho de la barra lateral como cero */
+      }
+    }
+
+    .fade-in-background {
+      animation: fadeInBackground 20s forwards;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.8), #a0153e); /* Degradado desde negro transparente hasta #a0153e */
+    }
+
+    .header {
+      height: 100vh;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      width: 100%; /* Añadir ancho completo en dispositivos pequeños */
+    }
+    .header {
+  height: 100vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  width: 100%;
+  border-radius: 20px; /* Agregar bordes difusos */
+  overflow: hidden; /* Asegurar que el contenido no se desborde */
+}
+
+    @keyframes scaleBg {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.1);
+      }
+    }
+
+    .header div {
+      position: relative;
+      z-index: 2;
+    }
+
+    .header h1 {
+      font-size: 4rem;
+      font-family: 'Raleway', sans-serif;
+      animation: bounceInDown 2s;
+      font-weight: 900;
+      color: #ffd700;
+      text-shadow: 2px 2px 5px black;
+    }
+
+    .header p.lead {
+      animation: fadeInUp 2s;
+    }
+
+    @keyframes bounceInDown {
+      0%,
+      60%,
+      75%,
+      90%,
+      100% {
+        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+      }
+      0% {
+        opacity: 0;
+        transform: translateY(-3000px);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(25px);
+      }
+      75% {
+        transform: translateY(-10px);
+      }
+      90% {
+        transform: translateY(5px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .typing-animation {
+      display: inline-block;
+      border-right: 2px solid rgba(255, 255, 255, 0.75);
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 2.5rem;
+      animation: typing 4s steps(22) infinite, blink 0.75s step-end infinite;
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: white; }
+    }
+
+    section {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #f5d93c;
+      font-weight: bold;
+      animation: fadeInUp 1s;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    .lead {
+      font-size: 1.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .lead {
+        font-size: 1rem;
+      }
+    }
+
+    .card {
+      transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+      border: none;
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #eeeeee;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 20px rgba(169, 29, 58, 0.5);
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .card img {
+      transition: transform 0.3s;
+      opacity: 0.8;
+    }
+
+    .card:hover img {
+      transform: none;
+      opacity: 1;
+    }
+
+    #contact {
+      color: black;
+    }
+
+    .project-tile {
+      position: relative;
+      overflow: hidden;
+      background-color: #333;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project-tile:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .project-tile img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.3s, opacity 0.3s;
+      opacity: 0.9;
+    }
+
+    .project-tile:hover img {
+      transform: none;
+      opacity: 1;
+    }
+
+    .technology-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .technology-card {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .technology-card i {
+      font-size: 4rem;
+      margin-bottom: 10px;
+      color: #ff204e;
+      transition: color 0.3s;
+    }
+
+    .technology-card:hover i {
+      color: #ecfc0b;
+      filter: drop-shadow(0px 9px 5px #000000);
+    }
+
+    .technology-card p {
+      font-size: 1.2rem;
+      color: #ffcb20;
+    }
+
+    .animate__animated {
+      animation-duration: 2s;
+    }
+
+    .navbar {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        display: flex;
+      }
+      .header {
+        width: 100%; /* Añadir ancho completo en dispositivos pequeños */
+      }
+    }
+
+    #contact {
+      padding: 60px 0;
+      background-color: rgba(190, 190, 190, 0.2);
+      color: #EEEEEE;
+    }
+
+    #contact .section-title {
+      color: #FF204E;
+    }
+
+    #contact .form-control {
+      background-color: white;
+      color: #EEEEEE;
+      box-shadow: 13px 11px 20px 1px rgba(0,0,0,0.75);
+      -webkit-box-shadow: 13px 11px 20px 1px rgba(0,0,0,0.75);
+      -moz-box-shadow: 13px 11px 20px 1px rgba(0,0,0,0.75);
+    }
+
+    #contact .form-control::placeholder {
+      color: #777;
+    }
+
+    #contact .btn-primary {
+      background-color: #FF204E;
+      border-color: #FF204E;
+    }
+
+    #contact .btn-primary:hover {
+      background-color: #5D0E41;
+      border-color: #5D0E41;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar para pantallas pequeñas -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">Portafolio</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebar-toggler">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#about">Acerca de mí</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#projects">Proyectos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav
+          -link" href="#contact">Contacto</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Barra lateral -->
+<div class="sidebar">
+  <a href="#" onclick="scrollToSection(event, 'about')">Acerca de mí</a>
+  <a href="#" onclick="scrollToSection(event, 'projects')">Proyectos</a>
+  <a href="#" onclick="scrollToSection(event, 'contact')">Contacto</a>
+</div>
+
+<script>
+  function scrollToSection(event, sectionId) {
+    event.preventDefault();
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+</script>
+
+
+  <!-- Contenido principal -->
+  <div class="content">
+    <!-- Sección de inicio -->
+    <header id="home" class="header fade-in-background">
+      <div>
+        <h1 class="animate__animated animate__bounceInDown">¡Hola! Soy [Tu Nombre]</h1>
+        <p class="lead animate__animated animate__fadeInUp">Soy un [Tu Profesión] apasionado por la <span class="typing-animation"></span></p>
+      </div>
+    </header>
+
+    <!-- Sección Acerca de Mí -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">Acerca de Mí</h2>
+        <p class="lead">Bienvenido a mi portafolio personal. Soy un [Tu Profesión] con experiencia en [Áreas de experiencia]. Me apasiona [Tu Pasión].</p>
+        <p class="lead">Aquí puedes encontrar información sobre mi experiencia, proyectos en los que he trabajado y cómo contactarme.</p>
+      </div>
+    </section>
+
+ <!-- Sección Proyectos -->
+<section id="projects">
+  <div class="container">
+    <h2 class="section-title">Proyectos</h2>
+    <div class="row">
+      <!-- Proyecto 1 -->
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <img src="ruta/a/la/imagen/proyecto1.jpg" class="card-img-top" alt="Proyecto 1">
+          <div class="card-body">
+            <h5 class="card-title">Nombre del Proyecto 1</h5>
+            <p class="card-text">Breve descripción del proyecto 1.</p>
+            <p class="card-text"><strong>Tecnologías usadas:</strong> HTML, CSS, JavaScript, React</p>
+            <a href="#" class="btn btn-primary">Ver más</a>
+          </div>
+        </div>
+      </div>
+      <!-- Proyecto 2 -->
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <img src="ruta/a/la/imagen/proyecto2.jpg" class="card-img-top" alt="Proyecto 2">
+          <div class="card-body">
+            <h5 class="card-title">Nombre del Proyecto 2</h5>
+            <p class="card-text">Breve descripción del proyecto 2.</p>
+            <p class="card-text"><strong>Tecnologías usadas:</strong> Python, Django, PostgreSQL</p>
+            <a href="#" class="btn btn-primary">Ver más</a>
+          </div>
+        </div>
+      </div>
+      <!-- Proyecto 3 -->
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <img src="ruta/a/la/imagen/proyecto3.jpg" class="card-img-top" alt="Proyecto 3">
+          <div class="card-body">
+            <h5 class="card-title">Nombre del Proyecto 3</h5>
+            <p class="card-text">Breve descripción del proyecto 3.</p>
+            <p class="card-text"><strong>Tecnologías usadas:</strong> Java, Spring Boot, MySQL</p>
+            <a href="#" class="btn btn-primary">Ver más</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Proyecto 4 -->
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <img src="ruta/a/la/imagen/proyecto4.jpg" class="card-img-top" alt="Proyecto 4">
+          <div class="card-body">
+            <h5 class="card-title">Nombre del Proyecto 4</h5>
+            <p class="card-text">Breve descripción del proyecto 4.</p>
+            <p class="card-text"><strong>Tecnologías usadas:</strong> JavaScript, Node.js, Express</p>
+            <a href="#" class="btn btn-primary">Ver más</a>
+          </div>
+        </div>
+      </div>
+      <!-- Proyecto 5 -->
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <img src="ruta/a/la/imagen/proyecto5.jpg" class="card-img-top" alt="Proyecto 5">
+          <div class="card-body">
+            <h5 class="card-title">Nombre del Proyecto 5</h5>
+            <p class="card-text">Breve descripción del proyecto 5.</p>
+            <p class="card-text"><strong>Tecnologías usadas:</strong> HTML, CSS, JavaScript, Vue.js</p>
+            <a href="#" class="btn btn-primary">Ver más</a>
+          </div>
+        </div>
+      </div>
+      <!-- Proyecto 6 -->
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <img src="ruta/a/la/imagen/proyecto6.jpg" class="card-img-top" alt="Proyecto 6">
+          <div class="card-body">
+            <h5 class="card-title">Nombre del Proyecto 6</h5>
+            <p class="card-text">Breve descripción del proyecto 6.</p>
+            <p class="card-text"><strong>Tecnologías usadas:</strong> Ruby on Rails, PostgreSQL</p>
+            <a href="#" class="btn btn-primary">Ver más</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Sección Contacto -->
+<section id="contact">
+  <div class="container py-4">
+    <h2 class="section-title text-center">Contáctame</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form>
+          <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" class="form-control" id="name" placeholder="Nombre">
+          </div>
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" class="form-control" id="email" placeholder="Correo electrónico">
+          </div>
+          <div class="form-group">
+            <label for="message">Mensaje</label>
+            <textarea class="form-control" id="message" rows="5" placeholder="Mensaje"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Otros medios de contacto -->
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-6 text-center">
+        <br><br>
+        <h3>Otros medios de contacto</h3>
+        <div class="social-icons mt-3">
+          <a href="#" class="text-decoration-none mr-3" style="font-size: 4rem; margin-bottom: 10px; color: #ff204e; transition: color 0.3s;"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="text-decoration-none" style="font-size: 4rem; margin-bottom: 10px; color: #ff204e; transition: color 0.3s;"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  function scrollToSection(event, sectionId) {
+    event.preventDefault();
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+</script>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
