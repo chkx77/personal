@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablas Mágicas</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div class="container text-center">
+        <h1 class="text-3xl font-bold mb-4">Tablas Mágicas</h1>
+        <div id="selection">
+            <h2 class="text-xl mb-2">Selecciona una tabla de multiplicar:</h2>
+            <div id="buttons" class="flex flex-wrap justify-center">
+                <!-- Botones para seleccionar la tabla -->
+            </div>
+        </div>
+        <div id="game" class="hidden">
+            <h2 id="question" class="text-xl mb-4"></h2>
+            <div id="grid" class="grid grid-cols-5 gap-4 mb-4">
+                <!-- Celdas de la cuadrícula -->
+            </div>
+            <div id="timer" class="relative w-full bg-gray-200 rounded-full">
+                <div id="progress" class="absolute top-0 left-0 h-full bg-green-500 rounded-full"></div>
+            </div>
+            <button id="nextLevel" class="hidden bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Siguiente Nivel</button>
+        </div>
+    </div>
+    <script>
+        const selection = document.getElementById('selection');
+        const game = document.getElementById('game');
+        const question = document.getElementById('question');
+        const grid = document.getElementById('grid');
+        const timer = document.getElementById('timer');
+        const progress = document.getElementById('progress');
+        const nextLevelButton = document.getElementById('nextLevel');
+
+        let currentTable = 0;
+        let correctAnswer = 0;
+        let timeLeft = 10; // Tiempo en segundos
+        let timerInterval;
+
+        function createButtons() {
+            const buttonsContainer = document.getElementById('buttons');
+            for (let i = 1; i <= 12; i++) {
+                const button = document.createElement('button');
+                button.textContent = `Tabla del ${i}`;
+                button.className = 'bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded m-2';
+                button.addEventListener('click', () => startGame(i));
+                buttonsContainer.appendChild(button);
+            }
+        }
+
+        function startGame(table) {
+            currentTable = table;
+            selection.classList.add('hidden');
+            game.classList.remove('hidden');
+            generateQuestion();
+            startTimer();
+        }
+
+        function generateQuestion() {
+            const num1 = currentTable;
+            const num2 = Math.floor(Math.random() * 12) + 1;
+            correctAnswer = num1 * num2;
+            question.textContent = `${num1} x ${num2} = ?`;
+            generateGrid();
+        }
+
+        function generateGrid() {
+            grid.innerHTML = '';
+            const answers = new Set();
+            answers.add(correctAnswer);
+
+            while (answers.size < 25) {
+                answers.add(Math.floor(Math.random() * 144) + 1);
+            }
+
+            const answersArray = Array.from(answers).sort(() => Math.random() - 0.5);
+
+            answersArray.forEach(answer => {
+                const button = document.createElement('button');
+                button.textContent = answer;
+                button.className = 'bg-white hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded';
+                button.addEventListener('click', () => checkAnswer(button, answer));
+                grid.appendChild(button);
+            });
+        }
+
+        function checkAnswer(button, answer) {
+            clearInterval(timerInterval);
+            if (answer === correctAnswer) {
+                button.classList.add('bg-green-500', 'hover:bg-green-700');
+                nextLevelButton.classList.remove('hidden');
+            } else {
+                button.classList.add('bg-red-500', 'hover:bg-red-700');
+            }
+        }
+
+        function startTimer() {
+            timeLeft = 10; // Reiniciar el tiempo
+            progress.style.width = '100%'; // Reiniciar la barra de progreso
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const progressPercentage = (timeLeft / 10) * 100;
+                progress.style.width = `${progressPercentage}%`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    nextLevelButton.classList.remove('hidden');
+                }
+            }, 1000);
+        }
+
+        nextLevelButton.addEventListener('click', () => {
+            nextLevelButton.classList.add('hidden');
+            generateQuestion();
+            startTimer();
+        });
+
+        createButtons();
+    </script>
+</body>
+</html>
